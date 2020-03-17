@@ -21,12 +21,16 @@ export const initialState = {
 export const featureReducer = (state = initialState, action) => {
   console.log("@@@", state, action);
   switch (action.type) {
+    // checks if that item has already been added to features. If yes do nothing, if no add to features and update total
     case ADD:
       return {
         ...state,
         car: {
           ...state.car,
-          features: state.car.features
+          features: state.car.features.includes(action.payload)
+            ? [...state.car.features]
+            : [...state.car.features, action.payload],
+          price: state.car.price + action.payload.price
         }
       };
     // checks car id against payload id and deducting car total from feature's price
