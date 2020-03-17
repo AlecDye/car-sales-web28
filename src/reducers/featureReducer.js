@@ -22,6 +22,7 @@ export const featureReducer = (state = initialState, action) => {
   console.log("@@@", state, action);
   switch (action.type) {
     // checks if that item has already been added to features. If yes do nothing, if no add to features and update total
+    // Bug: continues to add to total of already added features
     case ADD:
       return {
         ...state,
@@ -34,13 +35,16 @@ export const featureReducer = (state = initialState, action) => {
         }
       };
     // checks car id against payload id and deducting car total from feature's price
+    // Bug: removes car picture too
     case REMOVE:
       return {
         ...state,
-        features: state.car.features.filter(
-          car => car.id !== action.payload.id
-        ),
-        price: state.car.price - action.payload.price
+        car: {
+          features: state.car.features.filter(
+            car => car.id !== action.payload.id
+          ),
+          price: state.car.price - action.payload.price
+        }
       };
     default:
       return state;
