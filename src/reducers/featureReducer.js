@@ -15,7 +15,7 @@ export const initialState = {
   ]
 };
 
-export const addReducer = (state = initialState, action) => {
+export const featureReducer = (state = initialState, action) => {
   console.log("@@@", state, action);
   switch (action.type) {
     default:
