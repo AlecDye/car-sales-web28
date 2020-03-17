@@ -35,11 +35,11 @@ export const featureReducer = (state = initialState, action) => {
         }
       };
     // checks car id against payload id and deducting car total from feature's price
-    // Bug: removes car picture too
     case REMOVE:
       return {
         ...state,
         car: {
+          ...state.car,
           features: state.car.features.filter(
             car => car.id !== action.payload.id
           ),
