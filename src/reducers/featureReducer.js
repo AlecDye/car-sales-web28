@@ -1,3 +1,6 @@
+// import actions from action creator
+import { ADD, REMOVE } from "../actions";
+
 export const initialState = {
   additionalPrice: 0,
   car: {
@@ -18,6 +21,23 @@ export const initialState = {
 export const featureReducer = (state = initialState, action) => {
   console.log("@@@", state, action);
   switch (action.type) {
+    case ADD:
+      return {
+        ...state,
+        car: {
+          ...state.car,
+          features: state.car.features
+        }
+      };
+    // checks car id against payload id and deducting car total from feature's price
+    case REMOVE:
+      return {
+        ...state,
+        features: state.car.features.filter(
+          car => car.id !== action.payload.id
+        ),
+        price: state.car.price - action.payload.price
+      };
     default:
       return state;
   }
